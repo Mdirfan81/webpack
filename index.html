@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project - 1</title>
+  </head>
+  <body>
+    <!-- <script src="./src/hello-world.js"></script> -->
+
+    <!-- If using the webpack we need to provide the bundler js file name -->
+    <!-- <script src="./src/index.js"></script> -->
+    <script src="./dist/bundle.js"></script>
+  </body>
+</html>
+
+<!-- Problem: Here having 2 file for JS, namly index.js
+and hello-world.js in the hello-word.js I have written a function
+console.log("Hello World") msg to print.
+and calling the function in another file.
+
+-->
+<!-- if you put index.js file first
+it will give you a error
+ERR: function is not defined
+-->
+
+<!-- But if we call hello-world.js file first it will give 
+the output by consling the output : Hello World
+-->
+
+<!-- We need to remember this order or it will give us the error
+so solving this problem we make use of the webpack
+
+for bundaling all the files.
+-->
+<!-- WEBPACK    can manage all those dependencies for us and
+convernienlty bundle them into a single JS bundle that includes
+all the code needed for the application.
+ ==> npm i webpack webpack-cli --save-dev
+
+ webpack => is the main package to run it
+ webpack-cli => used to run it using the terminal, it also needed
+
+npx webpack 
+npx webpack --stats detailed => this shows the details like
+EntryPoint, assest etc
+-->
