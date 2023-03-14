@@ -432,9 +432,12 @@ module.exports = {
 > After building we can link the **CSS** file into out **HTML file**.
 > So all the CSS will be in ***styles.css file***
 
-> We can see the result, inline css is removed and file link will come.
+> We can see the result, inline css is removed and file link will come. ALL THE CSS FROM DIFFERENT FILE WILL AUTOMATICALLY COME TO COMMON FILE.
 
 ![Minify the Css](https://user-images.githubusercontent.com/60057329/225027183-0ed5547e-7445-407d-baf4-34760b9a2248.png)
+
+
+
 
 
 
