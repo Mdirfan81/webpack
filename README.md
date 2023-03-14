@@ -273,13 +273,14 @@ helloWorldButton.render();
  >  ***use*** is used to write more then one type.
   > Combine multiple rule in one.
   > Every Webpack loader comes as NPM package that
-    > You can add as a dependency to our application.
-      > in this case need to install 2 packages, style loader and CSS loader.
-      
-      ```ruby
-      npm i css-loader style-loader --save-dev
-      ```
-
+  > You can add as a dependency to our application.
+  > in this case need to install 2 packages, style loader and CSS loader.
+   ```ruby
+   npm i css-loader style-loader --save-dev
+   ```
+   >  We can see the result that the ***CSS*** is inject in **HTML head**
+  
+![Showing the result](https://user-images.githubusercontent.com/60057329/224952745-5c9b5357-6249-4b97-94de-ed9cf93d3ab8.png)
 
 
 <!-- BASICS -->
