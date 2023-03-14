@@ -27,6 +27,19 @@ module.exports = {
         // type: "asset",
         // asset will put the path of the image to file, ONLY.
       },
+      {
+        test: /\.txt/,
+        type: "assest/sourse",
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+        // this use is used to write more then one type.
+        // Combine multiple rule in one.
+        // Every Webpack loader comes as NPM package that
+        // You can add as a dependency to your application.
+        //in this case need to install 2 packages, style loader and CSS loader.
+      },
     ],
   },
 };
