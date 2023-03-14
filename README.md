@@ -196,7 +196,89 @@ and Importing that **Text file** in our add-image.js file (import altData from a
 
 > In this we are seeing to import CSS file in our Porject.
 
+### Example to load ***CSS** in our project
+```ruby
+Here we added a Class in component/helloWorldButton/hellowWorldButton.js
 
+import "./helloWorldButton.css";
+
+class HelloWorldButton {
+  render() {
+    let button = document.createElement("button");
+    button.innerHTML = "Hello Word";
+    button.classList.add("hello-world-button");
+    button.onclick = function () {
+      const p = document.createElement("p");
+      p.innerHTML = "Hello world";
+      p.classList.add("hello-world-text");
+      body.appendChild(p);
+    };
+    const body = document.querySelector("body");
+    body.appendChild(button);
+  }
+}
+
+export default HelloWorldButton;
+
+```
+```ruby
+Here we also added a CSS file in component/helloWorldButton/hellowWorldButton.css
+
+.hello-world-button {
+  font-size: 20px;
+  padding: 7px 15px;
+  background: green;
+  color: white;
+  outline: none;
+}
+.hello-world-text {
+  color: green;
+  font-weight: bold;
+}
+```
+> We can call this ***Render Function*** in our index.js File
+
+```ruby
+import HelloWorldButton from "./components/helloWorldButton/helloWorldButton";
+const helloWorldButton = new HelloWorldButton();
+helloWorldButton.render();
+
+```
+
+> Adding ***New Rule*** in Webpack to load the css file.
+```ruby
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset",
+        parse: {
+          dataUrlCondition: {
+            maxSize: 3 * 1024, //3 kiloytes
+          },
+        },
+      },
+      {
+        test: /\.txt/,
+        type: "asset/source",
+        //this make it text inline
+      },
+      {
+      test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  }
+```
+ >  ***use*** is used to write more then one type.
+  > Combine multiple rule in one.
+  > Every Webpack loader comes as NPM package that
+    > You can add as a dependency to our application.
+      > in this case need to install 2 packages, style loader and CSS loader.
+      
+      ```ruby
+      npm i css-loader style-loader --save-dev
+      ```
 
 
 
