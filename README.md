@@ -451,6 +451,7 @@ module.exports = {
 > For solving above problem, when ever we make any changes to code we will add the file with ***new file name***. where the browser store the onle Filename, ***IT WILL SEE IF THE FILE WITH NEW NAME THEN READ NEW FILE ELSE READ OLD ONE (CACHED ONE)***
 >  **Webpack will automatically handle this (auto generate new file names)** .
 
+
 ```ruby
 module.exports = {
   entry: "./src/index.js",
@@ -470,6 +471,9 @@ module.exports = {
 
 > Only need to add ***[contenthash]*** before any filename.
 > ***SEE THE FILE TREE***
+
+> Any new JS code update or added then a new JS file creates in dist folder, if CSS code add then CSS new file will added to dist folder.
+
 ![bundle](https://user-images.githubusercontent.com/60057329/225050891-d759b893-a2f1-4e0a-ae20-42bc3e335635.png)
 
 
