@@ -191,10 +191,289 @@ and Importing that **Text file** in our add-image.js file (import altData from a
   }
 ```
 
-###Loaders
+### Loaders
+> Loaders are used when we need to import different files, when we need to import CSS file etc,.
+
 > Allows to import all type of file which assest does not allow us.
 
 > In this we are seeing to import CSS file in our Porject.
+
+### Example to load ***CSS** in our project
+```ruby
+Here we added a Class in component/helloWorldButton/hellowWorldButton.js
+
+import "./helloWorldButton.css";
+
+class HelloWorldButton {
+  render() {
+    let button = document.createElement("button");
+    button.innerHTML = "Hello Word";
+    button.classList.add("hello-world-button");
+    button.onclick = function () {
+      const p = document.createElement("p");
+      p.innerHTML = "Hello world";
+      p.classList.add("hello-world-text");
+      body.appendChild(p);
+    };
+    const body = document.querySelector("body");
+    body.appendChild(button);
+  }
+}
+
+export default HelloWorldButton;
+
+```
+```ruby
+Here we also added a CSS file in component/helloWorldButton/hellowWorldButton.css
+
+.hello-world-button {
+  font-size: 20px;
+  padding: 7px 15px;
+  background: green;
+  color: white;
+  outline: none;
+}
+.hello-world-text {
+  color: green;
+  font-weight: bold;
+}
+```
+> We can call this ***Render Function*** in our index.js File
+
+```ruby
+import HelloWorldButton from "./components/helloWorldButton/helloWorldButton";
+const helloWorldButton = new HelloWorldButton();
+helloWorldButton.render();
+
+```
+
+> Adding ***New Rule*** in Webpack to load the css file.
+```ruby
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset",
+        parse: {
+          dataUrlCondition: {
+            maxSize: 3 * 1024, //3 kiloytes
+          },
+        },
+      },
+      {
+        test: /\.txt/,
+        type: "asset/source",
+        //this make it text inline
+      },
+      {
+      test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  }
+```
+ >  ***use*** is used to write more then one type.
+  > Combine multiple rule in one.
+  > Every Webpack loader comes as NPM package that
+  > You can add as a dependency to our application.
+  > in this case need to install 2 packages, style loader and CSS loader.
+   ```ruby
+   npm i css-loader style-loader --save-dev
+   ```
+   >  We can see the result that the ***CSS*** is inject in **HTML head**
+  
+![Showing the result](https://user-images.githubusercontent.com/60057329/224952745-5c9b5357-6249-4b97-94de-ed9cf93d3ab8.png)
+
+> We can also add ***SASS***
+
+> It read from ***right to left***.
+
+
+```ruby
+   {
+    test: /\.scss$/,
+    use: ["style-loader", "css-loader", "sass-loader"],
+   }
+  ```
+  
+  > npm i @babel/core babel-loader @babel/preset-env --save-dev
+  > HERE installing needed plugin in our JS Project
+  
+```ruby
+ {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+  ```
+
+### 4. Plugins
+```
+Plugins are additional JS libraries that do everything that loaders cannot do.
+Plugins can also modify how the bundles themselves are creates
+Ex: uglifyJSplugin takes the bundle.js and minimizes the contents to decrease the bundle size
+```
+> We can modify ***resulting bundles so it consumes less space on disk*** and is faster to download.
+
+1. ***Tercer Plugin***
+> Used to minify the bundle size, This Package comes within **Webpacke-5** ***No Need To Install***
+
+```ruby
+
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
+
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset/inline",
+      },
+      {
+        test: /\.txt/,
+        type: "assest/sourse",
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [new TerserPlugin()],
+};
+```
+1. ***Making CSS file in Seperate File using mini-css-extract-plugin***
+> We have already bundled the css in common file using **style-loader** etc, but it is not good for production application
+
+> By seprating the different file, all file size decreases, ***The performance will increase***
+
+> This will allow us to load multiple files in parallel, making overall experience even better.
+
+```ruby
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
+
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset/inline",
+      },
+      {
+        test: /\.txt/,
+        type: "assest/sourse",
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [new TerserPlugin(),
+  new MiniCssExtractPlugin({
+      filename: "styles.css", //This styles.css file will be in dist folder.
+    }),
+  ],
+};
+```
+> After building we can link the **CSS** file into out **HTML file**.
+> So all the CSS will be in ***styles.css file***
+
+> We can see the result, inline css is removed and file link will come. ALL THE CSS FROM DIFFERENT FILE WILL AUTOMATICALLY COME TO COMMON FILE.
+
+![Minify the Css](https://user-images.githubusercontent.com/60057329/225027183-0ed5547e-7445-407d-baf4-34760b9a2248.png)
+
+### 5. Browser Caching
+> Every time our browser loads a website, it downloads all the assets required by the websites. when ever browser reload it download the resourses.
+
+> This may becomes an issue, especially if your customers browse your website using mobile devices with slow internet connection. Each time they go to a new page, they need to wait several minutes until the page is ready.
+> Fortunately, there is a solution to this problem, and it's called **Browser Caching**
+
+> If the file didn't change between the page reloads, your browser can save it in a specific place, this place is called **cache**.
+
+> when you open this page again, browser wont download this file. This techinque helps to save lots of time and internet traffic.
+
+> But also cause a issue, Ex: If developer add new code or fix a bug, the browser this never read new code.
+
+> For solving above problem, when ever we make any changes to code we will add the file with ***new file name***. where the browser store the onle Filename, ***IT WILL SEE IF THE FILE WITH NEW NAME THEN READ NEW FILE ELSE READ OLD ONE (CACHED ONE)***
+>  **Webpack will automatically handle this (auto generate new file names)** .
+
+```ruby
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[contenthash].js", <---
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
+  plugins: [new TerserPlugin(),
+  new MiniCssExtractPlugin({
+      filename: "styles.[contenthash].css", <---//This styles.css file will be in dist folder.
+    }),
+  ],
+};
+```
+
+> Only need to add ***[contenthash]*** before any filename.
+> ***SEE THE FILE TREE***
+![bundle](https://user-images.githubusercontent.com/60057329/225050891-d759b893-a2f1-4e0a-ae20-42bc3e335635.png)
+
+
+
 
 
 
