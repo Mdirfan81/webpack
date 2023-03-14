@@ -192,6 +192,8 @@ and Importing that **Text file** in our add-image.js file (import altData from a
 ```
 
 ### Loaders
+> Loaders are used when we need to import different files, when we need to import CSS file etc,.
+
 > Allows to import all type of file which assest does not allow us.
 
 > In this we are seeing to import CSS file in our Porject.
@@ -293,11 +295,146 @@ helloWorldButton.render();
     use: ["style-loader", "css-loader", "sass-loader"],
    }
   ```
+  
+  > npm i @babel/core babel-loader @babel/preset-env --save-dev
+  > HERE installing needed plugin in our JS Project
+  
+```ruby
+ {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+  ```
+
+### 4. Plugins
+```
+Plugins are additional JS libraries that do everything that loaders cannot do.
+Plugins can also modify how the bundles themselves are creates
+Ex: uglifyJSplugin takes the bundle.js and minimizes the contents to decrease the bundle size
+```
+> We can modify ***resulting bundles so it consumes less space on disk*** and is faster to download.
+
+1. ***Tercer Plugin***
+> Used to minify the bundle size, This Package comes within **Webpacke-5** ***No Need To Install***
+
+```ruby
+
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
+
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset/inline",
+      },
+      {
+        test: /\.txt/,
+        type: "assest/sourse",
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [new TerserPlugin()],
+};
+```
+1. ***Making CSS file in Seperate File using mini-css-extract-plugin***
+> We have already bundled the css in common file using **style-loader** etc, but it is not good for production application
+
+> By seprating the different file, all file size decreases, ***The performance will increase***
+
+> This will allow us to load multiple files in parallel, making overall experience even better.
+
+```ruby
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
 
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset/inline",
+      },
+      {
+        test: /\.txt/,
+        type: "assest/sourse",
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [new TerserPlugin(),
+  new MiniCssExtractPlugin({
+      filename: "styles.css", //This styles.css file will be in dist folder.
+    }),
+  ],
+};
+```
+> After building we can link the **CSS** file into out **HTML file**.
+> So all the CSS will be in ***styles.css file***
 
+> We can see the result, inline css is removed and file link will come.
 
+![Minify the Css](https://user-images.githubusercontent.com/60057329/225027183-0ed5547e-7445-407d-baf4-34760b9a2248.png)
 
 
 
