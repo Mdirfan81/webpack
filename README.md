@@ -282,6 +282,25 @@ helloWorldButton.render();
   
 ![Showing the result](https://user-images.githubusercontent.com/60057329/224952745-5c9b5357-6249-4b97-94de-ed9cf93d3ab8.png)
 
+> We can also add ***SASS***
+
+> It read from ***right to left***.
+
+
+```ruby
+   {
+    test: /\.scss$/,
+    use: ["style-loader", "css-loader", "sass-loader"],
+   }
+  ```
+
+
+
+
+
+
+
+
 
 <!-- BASICS -->
 - for bullets.
