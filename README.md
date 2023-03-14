@@ -436,6 +436,43 @@ module.exports = {
 
 ![Minify the Css](https://user-images.githubusercontent.com/60057329/225027183-0ed5547e-7445-407d-baf4-34760b9a2248.png)
 
+### 5. Browser Caching
+> Every time our browser loads a website, it downloads all the assets required by the websites. when ever browser reload it download the resourses.
+
+> This may becomes an issue, especially if your customers browse your website using mobile devices with slow internet connection. Each time they go to a new page, they need to wait several minutes until the page is ready.
+> Fortunately, there is a solution to this problem, and it's called **Browser Caching**
+
+> If the file didn't change between the page reloads, your browser can save it in a specific place, this place is called **cache**.
+
+> when you open this page again, browser wont download this file. This techinque helps to save lots of time and internet traffic.
+
+> But also cause a issue, Ex: If developer add new code or fix a bug, the browser this never read new code.
+
+> For solving above problem, when ever we make any changes to code we will add the file with ***new file name***. where the browser store the onle Filename, ***IT WILL SEE IF THE FILE WITH NEW NAME THEN READ NEW FILE ELSE READ OLD ONE (CACHED ONE)***
+>  **Webpack will automatically handle this (auto generate new file names)** .
+
+```ruby
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[contenthash].js", <---
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/", //we can write this relative path where the images/ assets are present, 
+  },
+  mode: "none",
+  plugins: [new TerserPlugin(),
+  new MiniCssExtractPlugin({
+      filename: "styles.[contenthash].css", <---//This styles.css file will be in dist folder.
+    }),
+  ],
+};
+```
+
+> Only need to add ***[contenthash]*** before any filename.
+> ***SEE THE FILE TREE***
+![bundle](https://user-images.githubusercontent.com/60057329/225050891-d759b893-a2f1-4e0a-ae20-42bc3e335635.png)
+
+
 
 
 
