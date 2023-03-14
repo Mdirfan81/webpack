@@ -191,7 +191,7 @@ and Importing that **Text file** in our add-image.js file (import altData from a
   }
 ```
 
-###Loaders
+### Loaders
 > Allows to import all type of file which assest does not allow us.
 
 > In this we are seeing to import CSS file in our Porject.
