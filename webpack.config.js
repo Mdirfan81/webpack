@@ -8,7 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "bundle.js",
+    //contenthash: will cache the code, if any new code added to any file. read the new file or else read old one
+    // Ex: We change CSS file then new CSS file will read and (cached)old JS file new read
+    filename: "bundle.[contenthash].js",
     // path: "./dist",// relative path does not work so we are using the path package
     // where defining new absalute path below.
     path: path.resolve(__dirname, "./dist"),
@@ -68,7 +70,7 @@ module.exports = {
   plugins: [
     new TerserPlugin(),
     new MiniCssExtractPlugin({
-      filename: "styles.css", //userDefine
+      filename: "styles.[contenthash].css", //userDefine
     }),
   ],
 };
