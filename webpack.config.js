@@ -1,6 +1,9 @@
 //1. Basic Example
 
 const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// This come with in webpack-5 in build
 
 module.exports = {
   entry: "./src/index.js",
@@ -33,15 +36,41 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        // use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
         // this use is used to write more then one type.
         // Combine multiple rule in one.
         // Every Webpack loader comes as NPM package that
         // You can add as a dependency to your application.
         //in this case need to install 2 packages, style loader and CSS loader.
       },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        //it load from right to left.
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+            //here we plugin installing needed stuff in out JS project.
+            //npm i @babel/core babel-loader @babel/preset-env
+            // --save-dev
+          },
+        },
+      },
     ],
   },
+  plugins: [
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "styles.css", //userDefine
+    }),
+  ],
 };
 
 //rm -r dist // work in Ubuntu if any error come , use this command.
