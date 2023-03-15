@@ -9,7 +9,7 @@
 
 > Dependencies are other JS modules that your main JS file requires in order to do its JOB.
 
-> We can import SASS, LESS, handlebars, XML, JS, JSX and so much more!
+> We can import SASS, LESS, handlebars, XML, JS, JSX and much more!
 ```
 Webpack is a static module bundler for JavaScript applications that takes all of your code and turns it into something that 
 can be used in a web browser. Modules are reusable bits of code made up of JavaScript, node modules, images, and 
