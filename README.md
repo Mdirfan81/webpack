@@ -533,6 +533,34 @@ plugins: [
     new HtmlWebpackPlugin(), <--------------
   ],
   ```
+  > This create a ***HTML*** file in the **Dist Folder** and put path ***publicPath: " "*** where  ***link and script link come with only file linked within the dist folder***.
+  > This will give a new title in the HTML.
+
+##### Generate custom HTML File using webpack
+> We have some custom thing
+```js
+plugins: [
+     new HtmlWebpackPlugin({
+      title: "Hello World",
+      filename: "subfolder/custom_filename.html",
+      meta: {
+        description: "Some description",
+      },
+    }),
+    ],
+```
+  > This create a custom folder and put the HTML within it and change the title, filename and also adding description.
+
+![Change](https://user-images.githubusercontent.com/60057329/225302251-11c61260-e20c-42d7-9a58-e0738ded6fee.png)
+  
+  
+  
+  
+  
+  
+  
+  
+  
   >  __Warning__ SOMETHING
 
 
