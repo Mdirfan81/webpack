@@ -1,4 +1,5 @@
-# Webpack - Learning
+# $${\color{blue}Welcome \ \color{blue}To \ \color{blue}Webpack}$$
+
 > Learning about the webpack
 ![A image](https://cdn.iconscout.com/icon/free/png-256/webpack-1-1174980.png )
 
@@ -18,7 +19,7 @@ CSS styles that are bundled and ready to use in your website.
 
 ### 2. Basic Webpack instructions
 
-```ruby
+```js
 const path = require("path");
 
 module.exports = {
@@ -50,7 +51,7 @@ We can insert by using 3 types namely,
 3. asset
 
 ***1. asset/resource***
-```ruby
+```js
 const path = require("path");
 
 module.exports = {
@@ -76,7 +77,7 @@ module.exports = {
 
 #### *publicPath*
 > It will help when we are passing any assets from CDN or any external link.
-```ruby
+```js
 const path = require("path");
 
 module.exports = {
@@ -101,11 +102,11 @@ module.exports = {
 };
 ```
 >   ***publicPath: "http://some-cdn.com/"*** we have added, so path will be
-```ruby
+```js
 <img src="http://some-cdn.com/image-name.jpg" alt="testing" />
 ```
 ***2. asset/inline***
-```ruby
+```js
   module: {
     rules: [
       {
@@ -118,7 +119,7 @@ module.exports = {
 > It make **64-base** representation of our asset and make it direclty into the JS bundle. While importing large files make the size of our JS bundle a lot bigger.
 
 
-```ruby
+```js
 npx webpack --stats detailed
 ```
 > You can see the bundle size and extra information using this command.
@@ -130,7 +131,7 @@ npx webpack --stats detailed
 > Where the first one is used for Large Files.
 > and the seconid one is used for small files.
 > It depends on your specific situatin.
-```ruby
+```js
   module: {
     rules: [
       {
@@ -147,7 +148,7 @@ npx webpack --stats detailed
 > If the file size is ***less than*** **8 KB**, this file will be treated as a ***inline asset***
 
 >If we want change the limit of **8 KB** to any thing, We can do it by
-```ruby
+```js
   module: {
     rules: [
       {
@@ -170,7 +171,7 @@ Here we are importing a data from another file altText.txt, file contant***KIWI 
 and Importing that **Text file** in our add-image.js file (import altData from altText.txt) applying the text in alt of the img
 ```
 > This means that Webpack will read the contents of the text file and give us a JS string with those contents.
-```ruby
+```js
   module: {
     rules: [
       {
@@ -199,7 +200,7 @@ and Importing that **Text file** in our add-image.js file (import altData from a
 > In this we are seeing to import CSS file in our Porject.
 
 ### Example to load ***CSS** in our project
-```ruby
+```js
 Here we added a Class in component/helloWorldButton/hellowWorldButton.js
 
 import "./helloWorldButton.css";
@@ -223,7 +224,7 @@ class HelloWorldButton {
 export default HelloWorldButton;
 
 ```
-```ruby
+```js
 Here we also added a CSS file in component/helloWorldButton/hellowWorldButton.css
 
 .hello-world-button {
@@ -240,7 +241,7 @@ Here we also added a CSS file in component/helloWorldButton/hellowWorldButton.cs
 ```
 > We can call this ***Render Function*** in our index.js File
 
-```ruby
+```js
 import HelloWorldButton from "./components/helloWorldButton/helloWorldButton";
 const helloWorldButton = new HelloWorldButton();
 helloWorldButton.render();
@@ -248,7 +249,7 @@ helloWorldButton.render();
 ```
 
 > Adding ***New Rule*** in Webpack to load the css file.
-```ruby
+```js
   module: {
     rules: [
       {
@@ -277,7 +278,7 @@ helloWorldButton.render();
   > Every Webpack loader comes as NPM package that
   > You can add as a dependency to our application.
   > in this case need to install 2 packages, style loader and CSS loader.
-   ```ruby
+   ```js
    npm i css-loader style-loader --save-dev
    ```
    >  We can see the result that the ***CSS*** is inject in **HTML head**
@@ -289,7 +290,7 @@ helloWorldButton.render();
 > It read from ***right to left***.
 
 
-```ruby
+```js
    {
     test: /\.scss$/,
     use: ["style-loader", "css-loader", "sass-loader"],
@@ -299,7 +300,7 @@ helloWorldButton.render();
   > npm i @babel/core babel-loader @babel/preset-env --save-dev
   > HERE installing needed plugin in our JS Project
   
-```ruby
+```js
  {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -312,7 +313,7 @@ helloWorldButton.render();
   ```
 
 ### 4. Plugins
-```
+```js
 Plugins are additional JS libraries that do everything that loaders cannot do.
 Plugins can also modify how the bundles themselves are creates
 Ex: uglifyJSplugin takes the bundle.js and minimizes the contents to decrease the bundle size
@@ -322,7 +323,7 @@ Ex: uglifyJSplugin takes the bundle.js and minimizes the contents to decrease th
 1. ***Tercer Plugin***
 > Used to minify the bundle size, This Package comes within **Webpacke-5** ***No Need To Install***
 
-```ruby
+```js
 
 const TerserPlugin = require("terser-webpack-plugin");
 
@@ -376,7 +377,7 @@ module.exports = {
 
 > This will allow us to load multiple files in parallel, making overall experience even better.
 
-```ruby
+```js
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -452,7 +453,7 @@ module.exports = {
 >  **Webpack will automatically handle this (auto generate new file names)** .
 
 
-```ruby
+```js
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -480,7 +481,7 @@ module.exports = {
 
 > Install using ***npm i clean-webpack-plugin --save-dev***
 
-```ruby
+```js
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
     plugins: [
@@ -490,7 +491,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 > This ***delete all the previews file*** in dist folder whenever we build again.
 
 #### Problem : Suppose we are having sub-directory in the dist folder 
-```ruby
+```js
 Ex: dist/subFolder/file2.css
 > neet to add this
 
@@ -503,6 +504,64 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
 ```
 
 #### We are also having another way to clean (This method can use only when the webpack version is above the 5.20).
+```js
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/",
+    clean:true
+  },
+```
+> The ***Clean : true*** will remove every thing and it any 2 properties.
+> 
+> ***clean :{ dry: true, keep:/\.css/}***
+> ***DRY*** The Webpack will tell you which files it's going to remove instead of actually removing them.
+> ***Keep*** This tells to webpack to keep this file and delete anothers.
+
+> __Note__ ***When we build a new build, it always give us a new file name, so we cannot change it manually, so we can handle this using.***
+  ```js
+  npm i html-webpack-plugin
+  
+  const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+plugins: [
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "styles.[contenthash].css", //userDefine
+    }),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin(), <--------------
+  ],
+  ```
+  > This create a ***HTML*** file in the **Dist Folder** and put path ***publicPath: " "*** where  ***link and script link come with only file linked within the dist folder***.
+  > This will give a new title in the HTML.
+
+##### Generate custom HTML File using webpack
+> We have some custom thing
+```js
+plugins: [
+     new HtmlWebpackPlugin({
+      title: "Hello World",
+      filename: "subfolder/custom_filename.html",
+      meta: {
+        description: "Some description",
+      },
+    }),
+    ],
+```
+  > This create a custom folder and put the HTML within it and change the title, filename and also adding description.
+
+![Change](https://user-images.githubusercontent.com/60057329/225302251-11c61260-e20c-42d7-9a58-e0738ded6fee.png)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  >  __Warning__ SOMETHING
 
 
 <!-- BASICS -->
@@ -517,3 +576,22 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
   <!-- Comments -->
   
   **this is bold**
+```json
+
+```
+```html
+
+-->
+
+  
+```
+```js
+
+```
+```css
+   // code for coloring
+
+}
+```
+> __Note__ and > __Warning__
+// etc.
