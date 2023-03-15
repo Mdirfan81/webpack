@@ -476,8 +476,17 @@ module.exports = {
 
 ![bundle](https://user-images.githubusercontent.com/60057329/225050891-d759b893-a2f1-4e0a-ae20-42bc3e335635.png)
 
+### 6. Clean Dist Folder Before Generating New Bundles.
 
+```ruby
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+    plugins: [
+        new CleanWebpackPlugin(),
+    ],
+
+```
+> This ***delete all the previews file*** in dist folder whenever we build again.
 
 
 
