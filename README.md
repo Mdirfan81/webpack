@@ -1,4 +1,5 @@
-# Webpack - Learning
+# $${\color{blue}Welcome \ \color{blue}To \ \color{blue}Webpack}$$
+
 > Learning about the webpack
 ![A image](https://cdn.iconscout.com/icon/free/png-256/webpack-1-1174980.png )
 
@@ -532,7 +533,7 @@ plugins: [
     new HtmlWebpackPlugin(), <--------------
   ],
   ```
-  >  __Warning_ SOMETHING
+  >  __Warning__ SOMETHING
 
 
 <!-- BASICS -->
