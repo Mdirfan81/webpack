@@ -503,6 +503,35 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
 ```
 
 #### We are also having another way to clean (This method can use only when the webpack version is above the 5.20).
+```ruby
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/",
+    clean:true
+  },
+```
+> The ***Clean : true*** will remove every thing and it any 2 properties.
+> 
+> ***clean :{ dry: true, keep:/\.css/}***
+> ***DRY*** The Webpack will tell you which files it's going to remove instead of actually removing them.
+> ***Keep*** This tells to webpack to keep this file and delete anothers.
+
+> ***When we build a new build, it always give us a new file name, so we cannot change it manually, so we can handle this using.***
+  ```
+  npm i html-webpack-plugin
+  
+  const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+plugins: [
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "styles.[contenthash].css", //userDefine
+    }),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin(), <--------------
+  ],
+  ```
 
 
 <!-- BASICS -->
@@ -517,3 +546,83 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
   <!-- Comments -->
   
   **this is bold**
+```json
+   // code for coloring
+   {name:"someTHing"}
+```
+```html
+   // code for coloring
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project - 1</title>
+    <link rel="stylesheet" href="./dist/styles.css" />
+  </head>
+  <body>
+    <!-- <script src="./src/hello-world.js"></script> -->
+
+    <!-- If using the webpack we need to provide the bundler js file name -->
+    <!-- <script src="./src/index.js"></script> -->
+    <script src="./dist/bundle.js"></script>
+  </body>
+</html>
+
+<!-- Problem: Here having 2 file for JS, namly index.js
+and hello-world.js in the hello-word.js I have written a function
+console.log("Hello World") msg to print.
+and calling the function in another file.
+
+-->
+<!-- if you put index.js file first
+it will give you a error
+ERR: function is not defined
+-->
+
+<!-- But if we call hello-world.js file first it will give 
+the output by consling the output : Hello World
+-->
+
+<!-- We need to remember this order or it will give us the error
+so solving this problem we make use of the webpack
+
+for bundaling all the files.
+-->
+<!-- WEBPACK    can manage all those dependencies for us and
+convernienlty bundle them into a single JS bundle that includes
+all the code needed for the application.
+ ==> npm i webpack webpack-cli --save-dev
+
+ webpack => is the main package to run it
+ webpack-cli => used to run it using the terminal, it also needed
+
+npx webpack 
+npx webpack --stats detailed => this shows the details like
+EntryPoint, assest etc
+-->
+
+  
+```
+```js
+   // code for coloring
+   
+class Heading {
+  render() {
+    const h1 = document.createElement("h1");
+    const body = document.querySelector("body");
+    h1.innerHTML = "Webpack is awesome";
+    body.appendChild(h1);
+  }
+}
+export default Heading;
+```
+```css
+   // code for coloring
+   h1 {
+  color: gray;
+  font-size: 25px;
+}
+```
+// etc.
