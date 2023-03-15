@@ -4,7 +4,7 @@ const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 // This come with in webpack-5 in build
 
 module.exports = {
@@ -17,8 +17,13 @@ module.exports = {
     // where defining new absalute path below.
     path: path.resolve(__dirname, "./dist"),
     // publicPath : 'auto'  // is by default and check for the asset present or not.
-    publicPath: "dist/", //we can write this relative path where the images/ assets are present, This will work when we are making a different folder to put our assets when builded the application.
-
+    publicPath: "", //we can write this relative path where the images/ assets are present, This will work when we are making a different folder to put our assets when builded the application.
+    // clean:true,
+    // clean: {
+    // dry: true, // Webpack will tell you which files it's going to remove insetead of actaully removing them,
+    // keep: /\.css/, // option tells webpack which files it should keep when cleaning the list folder.
+    // this is telling to keep the CSS files and delete the other files.
+    // },
     // publicPath:'http://some-cdn.com/' it will help when we are passing any assets from CDN or any external link.
     //this act this way ex:- src:http://some-cdn.com/fileName. this file name we give when we are initializing the src or ex: in the image tag of the html
   },
@@ -75,6 +80,13 @@ module.exports = {
       filename: "styles.[contenthash].css", //userDefine
     }),
     new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Hello World",
+      filename: "subfolder/custom_filename.html",
+      meta: {
+        description: "Some description",
+      },
+    }),
   ],
 };
 
