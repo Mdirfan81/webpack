@@ -554,14 +554,25 @@ plugins: [
 ![Change](https://user-images.githubusercontent.com/60057329/225302251-11c61260-e20c-42d7-9a58-e0738ded6fee.png)
   
   ### 7. Production vs Development Builds
-  > In the Production our website to be as fast as possible and our bundles should be as small as possible.
+  > In the ***Production*** our website to be as fast as possible and our bundles should be as small as possible.
 
->On the other hand, during development,we often want to see an additional information inside our JavaScript code ***Source maps and other stuff***.
+>On the other hand, during ***development***,we often want to see an additional information inside our JavaScript code ***Source maps and other stuff***.
 
-#### __Note__ mode:'production' 
+
+> __Note__ mode : 'production' 
+>  We have lot of plugin [visit to see](https://webpack.js.org/configuration/mode/)
   
+> __Note__ We have to create 2 webpack file 1 for **developement** and another for **Production**.
+>     // new TerserPlugin(),// No need for this, in production it all **ready included**.
+> __Note__ ***bundle.[contenthash].js*** caching doesn't need this to be in development mode and also ***TerserPlugin()*** no need to minify the build in production.
   
-  
+  > For running the application write this in ***Package.json***
+  ```json
+    "scripts": {
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack --config webpack.dev.config.js"
+  },
+  ```
   
   >  __Warning__ SOMETHING
 
