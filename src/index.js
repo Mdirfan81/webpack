@@ -8,6 +8,6 @@ import Heading from "./components/heading/heading";
 const header = new Heading();
 header.render();
 
-let ten = 10;
+// let ten = 10;
 const helloWorldButton = new HelloWorldButton();
 helloWorldButton.render();
