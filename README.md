@@ -478,18 +478,31 @@ module.exports = {
 
 ### 6. Clean Dist Folder Before Generating New Bundles.
 
+> Install using ***npm i clean-webpack-plugin --save-dev***
+
 ```ruby
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
     plugins: [
         new CleanWebpackPlugin(),
-    ],
-
+    ]
 ```
 > This ***delete all the previews file*** in dist folder whenever we build again.
 
+#### Problem : Suppose we are having sub-directory in the dist folder 
+```ruby
+Ex: dist/subFolder/file2.css
+> neet to add this
 
+new CleanWebpackPlugin({
+cleanOnceBeforeBuildPatterns:[
+'**/*', //This means remove all the files together with subdirectories inside the out pass folder. THIS IS BY DEFAULT.
+path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
+]
+})
+```
 
+#### We are also having another way to clean (This method can use only when the webpack version is above the 5.20).
 
 
 <!-- BASICS -->
