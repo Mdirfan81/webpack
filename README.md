@@ -164,7 +164,7 @@ npx webpack --stats detailed
 ```
 > Here we are setting a **limit to 3 KB**, if the file size if more then **3KB** it will be treated as ***Resource asset*** Else ***Inline asset***.
 
-***3. asset/source module type***
+***4. asset/source module type***
 ```
 Here we are importing a data from another file altText.txt, file contant***KIWI ALT DATA***
 and Importing that **Text file** in our add-image.js file (import altData from altText.txt) applying the text in alt of the img
