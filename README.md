@@ -520,7 +520,7 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
 
 > __Note__ ***When we build a new build, it always give us a new file name, so we cannot change it manually, so we can handle this using.***
   ```js
-  npm i html-webpack-plugin
+  npm i html-webpack-plugin --save-dev
   
   const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -553,10 +553,12 @@ plugins: [
 
 ![Change](https://user-images.githubusercontent.com/60057329/225302251-11c61260-e20c-42d7-9a58-e0738ded6fee.png)
   
-  
-  
-  
-  
+  ### 7. Production vs Development Builds
+  > In the Production our website to be as fast as possible and our bundles should be as small as possible.
+
+>On the other hand, during development,we often want to see an additional information inside our JavaScript code ***Source maps and other stuff***.
+
+#### __Note__ mode:'production' 
   
   
   
