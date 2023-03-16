@@ -602,6 +602,7 @@ plugins: [
    > This approach is widely used when there is a need to create a single page application.
   
   ```js
+
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "./dist"),
@@ -624,8 +625,33 @@ plugins: [
 ```
 > __Note__ **devServer** have ***port*** to run the project code on specific port.
 
-  
-  
+> Even we have multiple HTML Templet
+
+```js
+  entry:{ 
+  'hello-world' :'./src/hello-world.js',//The chunk is ==>'hello-word','kiwi. 
+  'kiwi' : './src/kiwi.js'
+  }, 
+ new HtmlWebpackPlugin({
+      template: "src/page-templet.hbs",
+      title: "Hello World",
+      chunks:["hello-world']
+      description: "Some description",
+      filename: "hello-world.html",
+      description: "Hello world",
+      minify: false // only for dev to see the code well manner.
+    }),
+     new HtmlWebpackPlugin({
+      template: "src/page-templet.hbs",
+      title: "Kiwi",
+        chunks:["kiwi']
+      description: "Some description",
+      filename: "Kiwi.html",
+      description: "Kiwi",
+      minify: false // only for dev to see the code well manner.
+    }),
+```
+> chunk are the name in entry, the chunk us used to make different files.
   
   
   
