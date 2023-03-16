@@ -573,6 +573,47 @@ plugins: [
     "dev": "webpack --config webpack.dev.config.js"
   },
   ```
+  > __Note__ If we want to see our changes in the browser instantly, even without rebuilding stuff. We can make it happen using ***npm i webpack-dev-server --save-dev***
+  
+  ```js
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: " ",
+    mode: "development",
+    devServer:{
+    port:9000,
+    static:{
+    directery: path.resolve(__dirname, "./dist"),
+    },
+     devMiddleware: {
+      index: "index.html",
+      writeToDisk: true,
+    },
+    }, 
+  },
+```
+  > In the **devServer** we have 
+  > 1. **Port** Specify a port on which this server will be running.
+  > 2. **static** directery where to look for the build.
+  > 3. **devMiddleware** having **index** & **writeToDisk** By default webpack generate files in  memory.
+  
+   ### 8. Multiple Page Application
+   > This approach is widely used when there is a need to create a single page application.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   >  __Warning__ SOMETHING
 
