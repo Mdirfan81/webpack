@@ -657,13 +657,17 @@ plugins: [
 ##### Extracting Common Dependencies While Code Splitting (From files).
 > suppose we have 2 html file in build and both are using a common package then, when any file is running it will download it's own package.
 
-> so making common dependencies between 2 files we have ***optimization*** in webpack.
+> so making common dependencies between 2 files we have ***optimization*** in webpack. and it will load the package where it in use.
+> Webpack only includes this bundle in those files that really need it.
+
+> We also set a limit to chunks to store ***minSize:3000 3KB***
 
 ```js
 mode: 'production',
 optimization:{
   splitChunks:{
     chunks:'all',
+    minSize:3000, //3kb
   },
 }
 ```
