@@ -601,6 +601,29 @@ plugins: [
    ### 8. Multiple Page Application
    > This approach is widely used when there is a need to create a single page application.
   
+  ```js
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "",
+    
+  mode: "development",
+  devServer: {
+    port: 9000, //specify a port on which this server will be running
+    static: {
+      directery: path.resolve(__dirname, "./dist"), //the server what exactly should be served on that board here.
+    },
+    devMiddleware: {
+      // this tell which file to use as root / entry point.
+      index: "index.html",
+      writeToDisk: true, // By default webpack generate files in memory and doesn't save them to disk.
+      // In this case, your list folder is going to be empty,
+      // even though the application would be available.
+    },
+  },
+```
+> __Note__ **devServer** have port to run the project code on specific port.
+> **directery** 
   
   
   
