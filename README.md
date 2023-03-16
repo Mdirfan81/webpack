@@ -622,8 +622,8 @@ plugins: [
     },
   },
 ```
-> __Note__ **devServer** have port to run the project code on specific port.
-> **directery** 
+> __Note__ **devServer** have ***port*** to run the project code on specific port.
+
   
   
   
