@@ -652,9 +652,22 @@ plugins: [
     }),
 ```
 > chunk are the name in entry, the chunk us used to make different files.
+> ***Used to create Multiple HTML Files in dist folder***
   
-  
-  
+##### Extracting Common Dependencies While Code Splitting (From files).
+> suppose we have 2 html file in build and both are using a common package then, when any file is running it will download it's own package.
+
+> so making common dependencies between 2 files we have ***optimization*** in webpack.
+
+```js
+mode: 'production',
+optimization:{
+  splitChunks:{
+    chunks:'all',
+  },
+}
+```
+
   
   
   
