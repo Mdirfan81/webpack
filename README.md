@@ -672,6 +672,31 @@ optimization:{
 }
 ```
 
+#### want to run different pages. of our project
+> __Note__ making changes in Development mode.
+
+```js
+  entry: { "hello-world": "./src/index.js", 
+  "kiwi" : "./src/kiwi.js" 
+  },
+
+ new HtmlWebpackPlugin({
+      template: "./src/page-template.hbs",
+      title: "Hello World",
+      description: "Some description",
+      filename: "hello-word.html",
+      chunks: ["hello-world"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/page-template.hbs",
+      title: "Kiwi",
+      description: "KIWI description",
+      filename: "Kiwi.html",
+      chunks: ["Kiwi"],
+    }),
+
+```
+
   
   
   
