@@ -718,7 +718,7 @@ We can see the result as per the URL.
   
   
   
-  > __Note__ [All the code](https://github.com/vp-online-courses/webpack-tutorial/)
+  > __Note__ [All the code](https://github.com/vp-online-courses/webpack-tutorial/)👀
   
   >  __Warning__ SOMETHING
 
