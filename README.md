@@ -679,7 +679,15 @@ optimization:{
   entry: { "hello-world": "./src/index.js", 
   "kiwi" : "./src/kiwi.js" 
   },
-
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "", 
+    },
+    
+    mode: 'development',
+    
+      plugins: [
  new HtmlWebpackPlugin({
       template: "./src/page-template.hbs",
       title: "Hello World",
@@ -694,10 +702,16 @@ optimization:{
       filename: "Kiwi.html",
       chunks: ["Kiwi"],
     }),
-
+]
 ```
 
-  
+ > We can see in the output **[name].bundle.js** it will take the name from chunks, if we want run / see the different page in browser we need to change the last URL only
+```ruby
+Ex-1: http://localhost:9000/hello-world.js
+Ex-1: http://localhost:9000/kiwi.js
+
+We can see the result as per the URL.
+```
   
   
   
