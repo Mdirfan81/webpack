@@ -8,11 +8,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 // This come with in webpack-5 in build
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: { "hello-world": "./src/index.js", kiwi: "./src/kiwi.js" },
   output: {
     //contenthash: will cache the code, if any new code added to any file. read the new file or else read old one
     // Ex: We change CSS file then new CSS file will read and (cached)old JS file new read
-    filename: "bundle.[contenthash].js",
+    filename: "[name].bundle.js",
     // path: "./dist",// relative path does not work so we are using the path package
     // where defining new absalute path below.
     path: path.resolve(__dirname, "./dist"),
@@ -27,7 +27,21 @@ module.exports = {
     // publicPath:'http://some-cdn.com/' it will help when we are passing any assets from CDN or any external link.
     //this act this way ex:- src:http://some-cdn.com/fileName. this file name we give when we are initializing the src or ex: in the image tag of the html
   },
-  mode: "none",
+  mode: "development",
+  // mode: "none",
+  devServer: {
+    port: 9000, //specify a port on which this server will be running
+    static: {
+      directery: path.resolve(__dirname, "./dist"), //the server what exactly should be served on that board here.
+    },
+    devMiddleware: {
+      // this tell which file to use as root / entry point.
+      index: "index.html",
+      writeToDisk: true, // By default webpack generate files in memory and doesn't save them to disk.
+      // In this case, your list folder is going to be empty,
+      // even though the application would be available.
+    },
+  },
 
   module: {
     rules: [
@@ -72,6 +86,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.html$/,
+        use: "html-loader",
+      },
+      {
+        test: /\.hbs$/,
+        use: "handlebars-loader",
+      },
     ],
   },
   plugins: [
@@ -80,12 +102,13 @@ module.exports = {
       filename: "styles.[contenthash].css", //userDefine
     }),
     new CleanWebpackPlugin(),
+
     new HtmlWebpackPlugin({
-      title: "Hello World",
-      filename: "subfolder/custom_filename.html",
-      meta: {
-        description: "Some description",
-      },
+      template: "./src/page-template.hbs",
+      title: "Kiwi",
+      description: "KIWI description",
+      filename: "Kiwi.html",
+      chunks: ["Kiwi"],
     }),
   ],
 };
