@@ -724,3 +724,65 @@ We can see the result as per the URL.
   
   > __Note__ [All the code](https://github.com/vp-online-courses/webpack-tutorial/)👀
   
+  > __Note__ Used in my personal project
+  ```json
+  > Package.json
+  
+    "scripts": {
+    "build:dev": " webpack-dev-server --config webpack.config.js --open",
+    "build": " webpack --config webpack.config.prod.js",
+  },
+  ```
+  
+  ```js
+  > webpack.config.production.js
+const path = require('path')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+// const webpack = require('webpack')
+
+module.exports = {
+  mode: 'production',
+  devtool: 'inline-source-map',
+  entry: './src/index.js',
+  output: {
+    filename: 'index.js',
+    path: path.resolve('dist'),
+    publicPath: '/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader',
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        type: 'asset',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
+      },
+    ],
+  },
+  plugins: [
+    new HTMLWebpackPlugin({
+      template: 'index.html',
+    }),
+
+  ],
+  resolve: {
+    extensions: ['.jsx', '.js'],
+  },
+}
+
+  ```
