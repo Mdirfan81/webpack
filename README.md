@@ -520,7 +520,7 @@ path.join(process.cwd(), 'build/**/*')  will delete all subfolder only.
 
 > __Note__ ***When we build a new build, it always give us a new file name, so we cannot change it manually, so we can handle this using.***
   ```js
-  npm i html-webpack-plugin
+  npm i html-webpack-plugin --save-dev
   
   const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -553,13 +553,176 @@ plugins: [
 
 ![Change](https://user-images.githubusercontent.com/60057329/225302251-11c61260-e20c-42d7-9a58-e0738ded6fee.png)
   
+  ### 7. Production vs Development Builds
+  > In the ***Production*** our website to be as fast as possible and our bundles should be as small as possible.
+
+>On the other hand, during ***development***,we often want to see an additional information inside our JavaScript code ***Source maps and other stuff***.
+
+
+> __Note__ mode : 'production' 
+>  We have lot of plugin [visit to see](https://webpack.js.org/configuration/mode/)
+  
+> __Note__ We have to create 2 webpack file 1 for **developement** and another for **Production**.
+>     // new TerserPlugin(),// No need for this, in production it all **ready included**.
+> __Note__ ***bundle.[contenthash].js*** caching doesn't need this to be in development mode and also ***TerserPlugin()*** no need to minify the build in production.
+  
+  > For running the application write this in ***Package.json***
+  ```json
+    "scripts": {
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack --config webpack.dev.config.js"
+  },
+  ```
+  > __Note__ If we want to see our changes in the browser instantly, even without rebuilding stuff. We can make it happen using ***npm i webpack-dev-server --save-dev***
+  
+  ```js
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: " ",
+    mode: "development",
+    devServer:{
+    port:9000,
+    static:{
+    directery: path.resolve(__dirname, "./dist"),
+    },
+     devMiddleware: {
+      index: "index.html",
+      writeToDisk: true,
+    },
+    }, 
+  },
+```
+  > In the **devServer** we have 
+  > 1. **Port** Specify a port on which this server will be running.
+  > 2. **static** directery where to look for the build.
+  > 3. **devMiddleware** having **index** & **writeToDisk** By default webpack generate files in  memory.
+  
+   ### 8. Multiple Page Application
+   > This approach is widely used when there is a need to create a single page application.
+  
+  ```js
+
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "",
+    
+  mode: "development",
+  devServer: {
+    port: 9000, //specify a port on which this server will be running
+    static: {
+      directery: path.resolve(__dirname, "./dist"), //the server what exactly should be served on that board here.
+    },
+    devMiddleware: {
+      // this tell which file to use as root / entry point.
+      index: "index.html",
+      writeToDisk: true, // By default webpack generate files in memory and doesn't save them to disk.
+      // In this case, your list folder is going to be empty,
+      // even though the application would be available.
+    },
+  },
+```
+> __Note__ **devServer** have ***port*** to run the project code on specific port.
+
+> Even we have multiple HTML Templet
+
+```js
+  entry:{ 
+  'hello-world' :'./src/hello-world.js',//The chunk is ==>'hello-word','kiwi. 
+  'kiwi' : './src/kiwi.js'
+  }, 
+ new HtmlWebpackPlugin({
+      template: "src/page-templet.hbs",
+      title: "Hello World",
+      chunks:["hello-world']
+      description: "Some description",
+      filename: "hello-world.html",
+      description: "Hello world",
+      minify: false // only for dev to see the code well manner.
+    }),
+     new HtmlWebpackPlugin({
+      template: "src/page-templet.hbs",
+      title: "Kiwi",
+        chunks:["kiwi']
+      description: "Some description",
+      filename: "Kiwi.html",
+      description: "Kiwi",
+      minify: false // only for dev to see the code well manner.
+    }),
+```
+> chunk are the name in entry, the chunk us used to make different files.
+> ***Used to create Multiple HTML Files in dist folder***
+  
+##### Extracting Common Dependencies While Code Splitting (From files).
+> suppose we have 2 html file in build and both are using a common package then, when any file is running it will download it's own package.
+
+> so making common dependencies between 2 files we have ***optimization*** in webpack. and it will load the package where it in use.
+> Webpack only includes this bundle in those files that really need it.
+
+> We also set a limit to chunks to store ***minSize:3000 3KB***
+
+```js
+mode: 'production',
+optimization:{
+  splitChunks:{
+    chunks:'all',
+    minSize:3000, //3kb
+  },
+}
+```
+
+#### want to run different pages. of our project
+> __Note__ making changes in Development mode.
+
+```js
+  entry: { "hello-world": "./src/index.js", 
+  "kiwi" : "./src/kiwi.js" 
+  },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "", 
+    },
+    
+    mode: 'development',
+    
+      plugins: [
+ new HtmlWebpackPlugin({
+      template: "./src/page-template.hbs",
+      title: "Hello World",
+      description: "Some description",
+      filename: "hello-word.html",
+      chunks: ["hello-world"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/page-template.hbs",
+      title: "Kiwi",
+      description: "KIWI description",
+      filename: "Kiwi.html",
+      chunks: ["Kiwi"],
+    }),
+]
+```
+
+ > We can see in the output **[name].bundle.js** it will take the name from chunks, if we want run / see the different page in browser we need to change the last URL only
+```ruby
+Ex-1: http://localhost:9000/hello-world.js
+Ex-1: http://localhost:9000/kiwi.js
+
+We can see the result as per the URL.
+```
+
+##### Here we are creating a route with the help of express to render our multiple page application.
+  
+![server-code](https://user-images.githubusercontent.com/60057329/226531382-ae1c9f8f-67c6-4b84-bfa1-a9d39d000a0a.png)
+ 
+ > __Note__ Build and run the application, If you go http://localhost:3000/hello-world, we can see the hello-world page content, http://localhost:3000/kiwi/ the kiwi page which content the **image** of the KIWI
   
   
   
   
-  
-  
-  
+  > __Note__ [All the code](https://github.com/vp-online-courses/webpack-tutorial/)👀
   
   >  __Warning__ SOMETHING
 
