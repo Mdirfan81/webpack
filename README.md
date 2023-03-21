@@ -724,37 +724,3 @@ We can see the result as per the URL.
   
   > __Note__ [All the code](https://github.com/vp-online-courses/webpack-tutorial/)👀
   
-  >  __Warning__ SOMETHING
-
-
-<!-- BASICS -->
-- for bullets.
-1.ordered List
-  - nested list
-  
-  #Todo
-  - [x] # Marked check list #1
-  - [ ] need to complet :tada: `#0969DA`
-  
-  <!-- Comments -->
-  
-  **this is bold**
-```json
-
-```
-```html
-
--->
-
-  
-```
-```js
-
-```
-```css
-   // code for coloring
-
-}
-```
-> __Note__ and > __Warning__
-// etc.
