@@ -712,8 +712,12 @@ Ex-1: http://localhost:9000/kiwi.js
 
 We can see the result as per the URL.
 ```
+
+##### Here we are creating a route with the help of express to render our multiple page application.
   
-  
+![server-code](https://user-images.githubusercontent.com/60057329/226531382-ae1c9f8f-67c6-4b84-bfa1-a9d39d000a0a.png)
+ 
+ > __Note__ Build and run the application, If you go http://localhost:3000/hello-world, we can see the hello-world page content, http://localhost:3000/kiwi/ the kiwi page which content the **image** of the KIWI
   
   
   
